@@ -1,0 +1,6 @@
+@AuthEC.WebApi_HostAddress = http://localhost:5112
+
+GET {{AuthEC.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
