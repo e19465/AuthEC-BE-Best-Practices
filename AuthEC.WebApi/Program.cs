@@ -1,4 +1,3 @@
-using AuthEC.Entities;
 using AuthEC.WebApi.Extensions;
 
 

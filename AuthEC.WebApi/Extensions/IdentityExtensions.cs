@@ -10,6 +10,12 @@ namespace AuthEC.WebApi.Extensions
 {
 	public static class IdentityExtensions
 	{
+
+		/// <summary>
+		/// This method adds the Identity handlers and stores to the application
+		/// </summary>
+		/// <param name="services">IServiceCollection services</param>
+		/// <returns>IServiceCollection services</returns>
 		public static IServiceCollection AddIdentityHandlersAndStores(this IServiceCollection services)
 		{
 			services.AddIdentityApiEndpoints<AppUser>()
@@ -18,6 +24,13 @@ namespace AuthEC.WebApi.Extensions
 			return services;
 		}
 
+
+
+		/// <summary>
+		/// This method configures the Identity options
+		/// </summary>
+		/// <param name="services">IServiceCollection services</param>
+		/// <returns>IServiceCollection services</returns>
 		public static IServiceCollection ConfigureIdentityOptions(this IServiceCollection services)
 		{
 			services.Configure<IdentityOptions>(options =>
@@ -33,6 +46,12 @@ namespace AuthEC.WebApi.Extensions
 			return services;
 		}
 
+		/// <summary>
+		/// This method adds the authentication and authorization middlewares to the application
+		/// </summary>
+		/// <param name="services">IServiceCollection services</param>
+		/// <param name="configuration">IConfiguration configuration</param>
+		/// <returns>IServiceCollection services</returns>
 		public static IServiceCollection AddIdentityAuth(this IServiceCollection services, IConfiguration configuration)
 		{
 			services
@@ -69,6 +88,13 @@ namespace AuthEC.WebApi.Extensions
 			return services;
 		}
 
+
+
+		/// <summary>
+		/// This method adds the authentication and authorization middlewares to the application
+		/// </summary>
+		/// <param name="app">WebApplication app</param>
+		/// <returns>WebApplication app</returns>
 		public static WebApplication AddIdentityAuthMiddlewares(this WebApplication app)
 		{
 			app.UseAuthentication();

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using AuthEC.Services.Helpers;
-using Microsoft.AspNetCore.Mvc;
 
 public static class CustomExceptionsHandler
 {

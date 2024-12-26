@@ -1,17 +1,16 @@
-﻿using System;
-using System.Net;
-using AuthEC.Abstractions.Dto;
+﻿using System.Net;
 using AuthEC.Abstractions.Dto.AppUserRelated;
 using AuthEC.Abstractions.Interfaces;
-using AuthEC.DataAccess.Repository.IRepository;
 using AuthEC.Entities;
 using AuthEC.Services.Helpers;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Services.Helpers;
 
 namespace AuthEC.Services
 {
+	/// <summary>
+	/// This is the Service class for AppUser
+	/// </summary>
 	public class AppUserService : IAppUserService
 	{
 		private readonly UserManager<AppUser> _userManager;

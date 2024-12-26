@@ -9,13 +9,11 @@ namespace Services.Helpers
     /// </summary>
     public static class ValidationHelper
     {
-        /// <summary>
-        /// This is a static method to validate model binding inside ValidateModel class
-        /// </summary>
-        /// <param name="classToValidate"></param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
-        public static void ValidateModelBinding(object classToValidate)
+		/// <summary>
+		/// This is a static method to validate model binding inside ValidateModel class
+		/// </summary>
+		/// <param name="classToValidate">Model class to be Validated</param>
+		public static void ValidateModelBinding(object classToValidate)
         {
             if(classToValidate == null)
             {

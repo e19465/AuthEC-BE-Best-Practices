@@ -3,6 +3,9 @@ using AuthEC.Abstractions.Dto.AppUserRelated;
 
 namespace AuthEC.Abstractions.Interfaces
 {
+	/// <summary>
+	/// This is the interface for AppUserService, all the methods related to AppUser will be declared here
+	/// </summary>
 	public interface IAppUserService
 	{
 		/// <summary>

@@ -5,6 +5,12 @@ namespace AuthEC.WebApi.Extensions
 	public static class SwaggerExtensions
 	{
 
+
+		/// <summary>
+		/// This method adds the Swagger services to the application
+		/// </summary>
+		/// <param name="services">IServiceCollection services</param>
+		/// <returns>IServiceCollection services</returns>
 		public static IServiceCollection AddSwagger(this IServiceCollection services)
 		{
 			services.AddEndpointsApiExplorer();
@@ -37,6 +43,13 @@ namespace AuthEC.WebApi.Extensions
 			return services;
 		}
 
+
+
+		/// <summary>
+		/// This method adds the Swagger UI to the application
+		/// </summary>
+		/// <param name="application">WebApplication type application</param>
+		/// <returns>WebApplication application</returns>
 		public static WebApplication ConfigureSwagger(this WebApplication application) 
 		{
 			if (application.Environment.IsDevelopment())
