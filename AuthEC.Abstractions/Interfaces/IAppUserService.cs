@@ -11,5 +11,22 @@ namespace AuthEC.Abstractions.Interfaces
 		/// <param name="request">AppUserAddRequest type request body</param>
 		/// <returns>Success, or bad responses</returns>
 		Task<Task> AddUser(AppUserAddRequest request);
+
+		/// <summary>
+		/// This is the method to sign in a user
+		/// </summary>
+		/// <param name="request">Request body containing email and password</param>
+		/// <returns>JWT access and refresh toknes</returns>
+		Task<SignInResponse> SignInUser(SignInRequest request, string accessTokenSecret, string refreshTokenSecret);
+
+		/// <summary>
+		/// This is the method to refresh tokens
+		/// </summary>
+		/// <param name="request">RefreshTokenRequest type request body</param>
+		/// <param name="accessTokenSecret">Secret to create access token</param>
+		/// <param name="refreshTokenSecret">Secret to create refresh token</param>
+		/// <returns>JWT access and refresh toknes</returns>
+		Task<SignInResponse> RefreshTokens(RefreshTokenRequest request, string accessTokenSecret, string refreshTokenSecret);
+
 	}
 }

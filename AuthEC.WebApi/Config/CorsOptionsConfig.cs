@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Cors.Infrastructure;
 
-namespace AuthECBackend.Config
+namespace AuthEC.WebApi.Config
 {
     public static class CorsOptionsConfig
     {

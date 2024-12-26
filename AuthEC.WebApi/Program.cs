@@ -49,8 +49,8 @@ app.ConfigureSwagger()
 
 
 // Mapping  the Identity API endpoints
-app.MapGroup("/api/user")
-   .MapIdentityApi<AppUser>();
+//app.MapGroup("/api/user")
+//   .MapIdentityApi<AppUser>();
 
 
 

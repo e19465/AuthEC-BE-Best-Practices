@@ -1,4 +1,4 @@
-﻿using AuthECBackend.Config;
+﻿using AuthEC.WebApi.Config;
 
 namespace AuthEC.WebApi.Extensions
 {

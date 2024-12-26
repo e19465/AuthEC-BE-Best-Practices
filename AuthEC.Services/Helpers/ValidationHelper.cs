@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Net;
+using AuthEC.Services.Helpers;
 
 namespace Services.Helpers
 {
@@ -17,8 +19,9 @@ namespace Services.Helpers
         {
             if(classToValidate == null)
             {
-                throw new ArgumentNullException(nameof(classToValidate));
-            }
+                throw new CustomException(HttpStatusCode.BadRequest, "Model is null");
+
+			}
 
             ValidationContext validationContext = new ValidationContext(classToValidate);
             List<ValidationResult> validationResults = new List<ValidationResult>();
@@ -35,8 +38,8 @@ namespace Services.Helpers
                     }
                 }
                 var errorMessage = string.Join("; ", errorObject.Select(e => $"{e.Key}: {e.Value}"));
-                throw new ArgumentException(errorMessage);
-            }
+                throw new CustomException(HttpStatusCode.BadRequest, errorMessage);
+			}
         }
     }
 }

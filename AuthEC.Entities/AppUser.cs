@@ -14,7 +14,7 @@ namespace AuthEC.Entities
 		public string? Gender { get; set; }
 
 		[PersonalData]
-		public DateTime? DateOfBirth { get; set; }
+		public DateOnly? DateOfBirth { get; set; }
 
 		[PersonalData]
 		public Guid? LibraryId { get; set; }
