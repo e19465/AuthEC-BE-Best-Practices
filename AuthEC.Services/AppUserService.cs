@@ -22,6 +22,14 @@ namespace AuthEC.Services
 			_jwtTokenService = new JwtTokenService(userManager);
 		}
 
+
+
+		/// <summary>
+		/// This service method adds a new user to the database
+		/// </summary>
+		/// <param name="userAddRequest">AppUserAddRequest type object</param>
+		/// <returns>Task.CompletedTask if successfull</returns>
+		/// <exception cref="CustomException">throws CustomException is error occurs</exception>
 		public async Task<Task> AddUser(AppUserAddRequest userAddRequest)
 		{
 			try
@@ -31,11 +39,26 @@ namespace AuthEC.Services
 				var result = await _userManager.CreateAsync(newUser, userAddRequest.Password);
 				if(result.Succeeded)
 				{
-					return Task.CompletedTask;
+					var roleResult = await _userManager.AddToRoleAsync(newUser, userAddRequest.Role!);
+					if (roleResult.Succeeded)
+					{
+						return Task.CompletedTask;
+					}
+					else
+					{
+						await _userManager.DeleteAsync(newUser);
+						var errorMessage = string.Join("; ", roleResult.Errors.Select(result => result.Description));
+						throw new CustomException(HttpStatusCode.BadRequest, errorMessage);
+					}
 				}
 				else
 				{
 					var errorMessage = string.Join("; ", result.Errors.Select(result => result.Description));
+					// Check if the error is due to a duplicate email
+					if (result.Errors.Any(e => e.Code == "DuplicateEmail"))
+					{
+						throw new CustomException(HttpStatusCode.BadRequest, "Email Already Exists");
+					}
 					throw new CustomException(HttpStatusCode.BadRequest, errorMessage);
 				}
 			}
@@ -50,6 +73,7 @@ namespace AuthEC.Services
 		}
 
 
+
 		/// <summary>
 		/// App User sign in method
 		/// </summary>
@@ -57,14 +81,20 @@ namespace AuthEC.Services
 		/// <returns>Object containing access and refresh tokens</returns>
 		public async Task<SignInResponse> SignInUser(SignInRequest request, string accessTokenSecret, string refreshTokenSecret)
 		{
-			string role = "Student";
 			try
 			{
 				AppUser? foundUser = await _userManager.FindByEmailAsync(request.Email);
 				if (foundUser == null)
 				{
-					throw new CustomException(HttpStatusCode.NotFound, "User not found");
+					throw new CustomException(HttpStatusCode.NotFound, "Invalid Credentials");
 				}
+				bool isPasswordValid = await _userManager.CheckPasswordAsync(foundUser, request.Password);
+				if (!isPasswordValid)
+				{
+					throw new CustomException(HttpStatusCode.Unauthorized, "Invalid Credentials");
+				}
+				var roles = _userManager.GetRolesAsync(foundUser);
+				string role = roles.Result.First().ToString();
 				string accessToken = _jwtTokenService.GenerateAccessToken(foundUser, role, accessTokenSecret);
 				string refreshToken = _jwtTokenService.GenerateRefreshToken(foundUser, refreshTokenSecret);
 				return new SignInResponse
@@ -84,6 +114,15 @@ namespace AuthEC.Services
 		}
 
 
+
+		/// <summary>
+		/// This service method refreshes the access and refresh tokens
+		/// </summary>
+		/// <param name="request">RefreshTokenRequest type object</param>
+		/// <param name="accessTokenSecret">Secret Key to generate JWT Access Token</param>
+		/// <param name="refreshTokenSecret">Secret Key to generate JWT Refresh Token</param>
+		/// <returns>JWT access & Refresh tokens</returns>
+		/// <exception cref="CustomException">throws CustomException if error occur</exception>
 		public async Task<SignInResponse> RefreshTokens(RefreshTokenRequest request, string accessTokenSecret, string refreshTokenSecret)
 		{
 			try
@@ -93,7 +132,8 @@ namespace AuthEC.Services
 				{
 					throw new CustomException(HttpStatusCode.Unauthorized, "Invalid refresh token");
 				}
-				string role = "Student";
+				var roles = _userManager.GetRolesAsync(userFromRefreshToken);
+				string role = roles.Result.First().ToString();
 				string accessToken = _jwtTokenService.GenerateAccessToken(userFromRefreshToken, role, accessTokenSecret);
 				string refreshToken = _jwtTokenService.GenerateRefreshToken(userFromRefreshToken, refreshTokenSecret);
 

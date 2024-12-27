@@ -17,6 +17,15 @@ namespace AuthEC.Services
 			_userManager = userManager;
 		}
 
+
+
+		/// <summary>
+		/// This method generates an access token for the user
+		/// </summary>
+		/// <param name="user">AppUser type user</param>
+		/// <param name="userRole">User's Role</param>
+		/// <param name="accessTokenSecret">Secret Key to generate access token</param>
+		/// <returns></returns>
 		public string GenerateAccessToken(AppUser user, string userRole, string accessTokenSecret)
 		{
 			var accessSecret = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(accessTokenSecret));
@@ -26,7 +35,8 @@ namespace AuthEC.Services
 				new Claim("UserId", user.Id),
 				new Claim("Gender", user.Gender!),
 				new Claim("Age", (DateTime.Now.Year - user.DateOfBirth!.Value.Year).ToString()),
-				new Claim("Role", userRole)
+				new Claim("Role", userRole),
+				new Claim("TokenType", "access")
 			});
 
 			if (user.LibraryId != null) 
@@ -47,13 +57,21 @@ namespace AuthEC.Services
 		}
 
 
+
+		/// <summary>
+		/// This method generates a refresh token for the user
+		/// </summary>
+		/// <param name="user">AppUser type user</param>
+		/// <param name="refreshTokenSecret">Secret key to generate refresh token</param>
+		/// <returns>JWT access and refresh tokens</returns>
 		public string GenerateRefreshToken(AppUser user, string refreshTokenSecret)
 		{
 			var refreshSecret = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(refreshTokenSecret));
 
 			ClaimsIdentity claims = new ClaimsIdentity(new Claim[]
 			{
-				new Claim("UserId", user.Id)
+				new Claim("UserId", user.Id),
+				new Claim("TokenType", "refresh")
 			});
 
 			var tokenDescriptor = new SecurityTokenDescriptor
@@ -68,6 +86,14 @@ namespace AuthEC.Services
 			return token;
 		}
 
+
+
+		/// <summary>
+		/// This method validates the refresh token
+		/// </summary>
+		/// <param name="refreshToken">Refresh token to be validated</param>
+		/// <param name="refreshTokenSecret">Secret key to validate token</param>
+		/// <returns>AppUser tyoe user if refresh token is valid otherwise null</returns>
 
 		public async Task<AppUser?> ValidateRefreshToken(string refreshToken, string refreshTokenSecret)
 		{

@@ -1,0 +1,67 @@
+[
+    {
+        "email": "admin1_m_age51@gmail.com",
+        "password": "Admin1_m!",
+        "confirmPassword": "Admin1_m!",
+        "fullName": "Admin 1",
+        "role": "Admin",
+        "gender": "Male",
+        "dateOfBirth": "1970-05-05"
+    },
+    {
+        "email": "teacher1_f_age36@gmail.com",
+        "password": "Teacher1_f@",
+        "confirmPassword": "Teacher1_f@",
+        "fullName": "Teacher 1",
+        "role": "Teacher",
+        "gender": "Female",
+        "dateOfBirth": "1987-06-15"
+    },
+    {
+        "email": "teacher2_m_age40@gmail.com",
+        "password": "Teacher2_m#",
+        "confirmPassword": "Teacher2_m#",
+        "fullName": "Teacher 2",
+        "role": "Teacher",
+        "gender": "Male",
+        "dateOfBirth": "1983-03-20"
+    },
+    {
+        "email": "student1_f_age21@gmail.com",
+        "password": "Student1_f$",
+        "confirmPassword": "Student1_f$",
+        "fullName": "Student 1",
+        "role": "Student",
+        "gender": "Female",
+        "dateOfBirth": "2002-10-12",
+        "libraryId": "50459F22-6C55-42FF-95FA-A1B6BF163424"
+    },
+    {
+        "email": "student2_m_age21@gmail.com",
+        "password": "Student2_m%",
+        "confirmPassword": "Student2_m%",
+        "fullName": "Student 2",
+        "role": "Student",
+        "gender": "Male",
+        "dateOfBirth": "2002-07-08"
+    },
+    {
+        "email": "student3_m_age9@gmail.com",
+        "password": "Student3_m&",
+        "confirmPassword": "Student3_m&",
+        "fullName": "Student 3",
+        "role": "Student",
+        "gender": "Male",
+        "dateOfBirth": "2014-12-01"
+    },
+    {
+        "email": "student4_f_age9@gmail.com",
+        "password": "Student4_f*",
+        "confirmPassword": "Student4_f*",
+        "fullName": "Student 4",
+        "role": "Student",
+        "gender": "Female",
+        "dateOfBirth": "2014-09-10",
+        "libraryId": "BB53E106-623E-4DB1-9D45-66063A593D1C"
+    }
+]

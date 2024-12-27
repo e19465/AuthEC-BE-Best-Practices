@@ -9,6 +9,8 @@ using Microsoft.Extensions.Options;
 
 namespace AuthEC.WebApi.Controllers
 {
+	[ApiController]
+	[Route("api/user")]
 	public class AppUserController : ControllerBase
 	{
 		private readonly IAppUserService _appUserService;
@@ -25,10 +27,9 @@ namespace AuthEC.WebApi.Controllers
 		/// </summary>
 		/// <param name="request">AppUserAddRequest typre request body</param>
 		/// <returns>HttpResponse</returns>
-		[HttpPost]
-		[Route("api/user/sign-up")]
+		[HttpPost("sign-up")]
 		[AllowAnonymous]
-		public async Task<IResult> RegisterUser(AppUserAddRequest request)
+		public async Task<IResult> RegisterUser([FromBody] AppUserAddRequest request)
 		{
 			try
 			{
@@ -48,10 +49,9 @@ namespace AuthEC.WebApi.Controllers
 		/// </summary>
 		/// <param name="request">SignInRequest type request body</param>
 		/// <returns>JWT access and refresh tokens</returns>
-		[HttpPost]
-		[Route("api/user/sign-in")]
+		[HttpPost("sign-in")]
 		[AllowAnonymous]
-		public async Task<IResult> LoginUser(SignInRequest request)
+		public async Task<IResult> LoginUser([FromBody] SignInRequest request)
 		{
 			try
 			{
@@ -73,10 +73,9 @@ namespace AuthEC.WebApi.Controllers
 		/// </summary>
 		/// <param name="request">RefreshTokenRequest type request body</param>
 		/// <returns>JWT access and refresh tokens</returns>
-		[HttpPost]
-		[Route("api/user/refresh-jwt")]
+		[HttpPost("refresh-jwt")]
 		[AllowAnonymous]
-		public async Task<IResult> RefreshTokens(RefreshTokenRequest request)
+		public async Task<IResult> RefreshTokens([FromBody] RefreshTokenRequest request)
 		{
 			try
 			{
