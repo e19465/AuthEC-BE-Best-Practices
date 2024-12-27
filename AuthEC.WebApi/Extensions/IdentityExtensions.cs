@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Security.Claims;
+using System.Text;
 using AuthEC.DataAccess.Data;
 using AuthEC.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -66,6 +67,7 @@ namespace AuthEC.WebApi.Extensions
 						ValidateIssuer = false,
 						ValidateAudience = false,
 						ValidateLifetime = true,
+						RoleClaimType = "Role",
 						ClockSkew = TimeSpan.Zero
 
 					};

@@ -19,6 +19,7 @@ namespace AuthEC.WebApi.Controllers
 		{
 			try
 			{
+				//var claims = HttpContext.User.Claims.ToList(); // How to access the claims
 				return Task.FromResult(Results.Ok(new { Message = "You are authorized to view this data" }));
 			}
 			catch (Exception ex)
