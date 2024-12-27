@@ -12,7 +12,7 @@ namespace AuthEC.Abstractions.Dto.AppUserRelated
 		[JsonPropertyName("accessToken")]
 		public required string AccessToken { get; set; }
 
-		[JsonPropertyName("refeshToken")]
+		[JsonPropertyName("refreshToken")]
 		public required string RefreshToken { get; set; }
 	}
 }
