@@ -1,15 +1,13 @@
-﻿using System.Net;
-using AuthEC.Abstractions.Dto.AppUserRelated;
+﻿using AuthEC.Abstractions.Dto.AppUserRelated;
 using AuthEC.Abstractions.Interfaces;
-using AuthEC.Services.Helpers;
-using AuthEC.WebApi.Config;
+using AuthEC.WebApi.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
 namespace AuthEC.WebApi.Controllers
 {
-	[ApiController]
+    [ApiController]
 	[Route("api/user")]
 	public class AppUserController : ControllerBase
 	{

@@ -1,10 +1,10 @@
-﻿using AuthEC.WebApi.Config;
+﻿using AuthEC.WebApi.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuthEC.WebApi.Controllers
 {
-	[ApiController]
+    [ApiController]
 	[Route("api/authorization")]
 	public class AuthorizationExampleController : ControllerBase
 	{

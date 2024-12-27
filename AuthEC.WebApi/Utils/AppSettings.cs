@@ -1,4 +1,4 @@
-﻿namespace AuthEC.WebApi.Config
+﻿namespace AuthEC.WebApi.Utils
 {
     public class AppSettings
     {

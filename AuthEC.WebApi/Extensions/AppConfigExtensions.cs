@@ -1,8 +1,9 @@
 ﻿using AuthEC.WebApi.Config;
+using AuthEC.WebApi.Utils;
 
 namespace AuthEC.WebApi.Extensions
 {
-	public static class AppConfigExtensions
+    public static class AppConfigExtensions
 	{
 
 		/// <summary>
