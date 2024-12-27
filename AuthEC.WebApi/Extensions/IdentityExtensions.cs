@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using System.Text;
+﻿using System.Text;
 using AuthEC.DataAccess.Data;
 using AuthEC.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

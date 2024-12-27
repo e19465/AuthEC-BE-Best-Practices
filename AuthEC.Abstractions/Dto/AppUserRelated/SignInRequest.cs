@@ -7,6 +7,7 @@ namespace AuthEC.Abstractions.Dto.AppUserRelated
 	{
 		[Required(ErrorMessage = "Email is Required")]
 		[JsonPropertyName("email")]
+		[EmailAddress(ErrorMessage = "Invalid Email Address")]
 		public required string Email { get; set; }
 
 		[DataType(DataType.Password)]
