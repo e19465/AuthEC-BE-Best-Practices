@@ -4,6 +4,8 @@ using AuthEC.Abstractions.Interfaces;
 using AuthEC.Entities;
 using AuthEC.Services.Helpers;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Services.Helpers;
 
 namespace AuthEC.Services
@@ -39,7 +41,7 @@ namespace AuthEC.Services
 				var result = await _userManager.CreateAsync(newUser, userAddRequest.Password);
 				if(result.Succeeded)
 				{
-					var roleResult = await _userManager.AddToRoleAsync(newUser, userAddRequest.Role!);
+					var roleResult = await _userManager.AddToRoleAsync(newUser, userAddRequest.Role.ToString()!);
 					if (roleResult.Succeeded)
 					{
 						return Task.CompletedTask;
@@ -61,6 +63,20 @@ namespace AuthEC.Services
 					}
 					throw new CustomException(HttpStatusCode.BadRequest, errorMessage);
 				}
+			}
+			catch (DbUpdateException dbEx)
+			{
+				// Inspect inner exception to determine if it relates to a specific unique constraint
+				if (dbEx.InnerException is SqlException sqlEx) // For SQL Server
+				{
+					if (sqlEx.Message.Contains("Cannot insert duplicate key row") &&
+				sqlEx.Message.Contains("IX_AspNetUsers_LibraryId")) // Check if message contains 'LibraryId' (if that's part of the error message)
+					{
+						throw new CustomException(HttpStatusCode.BadRequest, "Library ID Already Exists");
+					}
+				}
+				// If it's another unique constraint violation, handle generically
+				throw new CustomException(HttpStatusCode.BadRequest, "A unique constraint violation occurred.");
 			}
 			catch (CustomException)
 			{

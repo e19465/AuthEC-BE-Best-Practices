@@ -42,7 +42,7 @@ namespace AuthEC.Abstractions.Dto.AppUserRelated
 		public required DateOnly DateOfBirth { get; set; }
 
         [JsonPropertyName("role")]
-		public string? Role { get; set; } = "Student"; // Default role is "Student
+		public RoleOptions? Role { get; set; } = RoleOptions.Student;
 
 
 		public AppUser ToAppUser()

@@ -18,6 +18,12 @@ namespace AuthEC.DataAccess.Data
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
 			base.OnModelCreating(builder);
+
+
+			// Configure AppUser Library ID as unique
+			builder.Entity<AppUser>()
+				.HasIndex(u => u.LibraryId)
+				.IsUnique();
 		}
 	}
 }
