@@ -1,4 +1,4 @@
-﻿using AuthEC.WebApi.Utils;
+﻿using AuthEC.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

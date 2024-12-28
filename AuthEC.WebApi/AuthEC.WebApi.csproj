@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AuthEC.DataAccess\AuthEC.DataAccess.csproj" />
     <ProjectReference Include="..\AuthEC.Services\AuthEC.Services.csproj" />
+    <ProjectReference Include="..\AuthEC.Utils\AuthEC.Utils.csproj" />
   </ItemGroup>
 
 </Project>

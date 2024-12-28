@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AuthEC.Abstractions\AuthEC.Abstractions.csproj" />
     <ProjectReference Include="..\AuthEC.DataAccess\AuthEC.DataAccess.csproj" />
+    <ProjectReference Include="..\AuthEC.Utils\AuthEC.Utils.csproj" />
   </ItemGroup>
 
 </Project>

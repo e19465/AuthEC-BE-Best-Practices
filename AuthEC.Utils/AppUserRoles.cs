@@ -1,4 +1,4 @@
-﻿namespace AuthEC.WebApi.Utils
+﻿namespace AuthEC.Utils
 {
     public class AppUserRoles
     {

@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthEC.WebApi", "AuthEC.WebApi\AuthEC.WebApi.csproj", "{4ADA43D5-F4B9-49B6-B06A-485BB8CB52F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthEC.WebApi", "AuthEC.WebApi\AuthEC.WebApi.csproj", "{4ADA43D5-F4B9-49B6-B06A-485BB8CB52F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthEC.Entities", "AuthEC.Entities\AuthEC.Entities.csproj", "{10CB6AB3-91A1-4A19-BD63-FC8964B22E4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthEC.Entities", "AuthEC.Entities\AuthEC.Entities.csproj", "{10CB6AB3-91A1-4A19-BD63-FC8964B22E4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthEC.Services", "AuthEC.Services\AuthEC.Services.csproj", "{54D16327-E3B7-4475-A792-1685FD097199}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthEC.Services", "AuthEC.Services\AuthEC.Services.csproj", "{54D16327-E3B7-4475-A792-1685FD097199}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthEC.Abstractions", "AuthEC.Abstractions\AuthEC.Abstractions.csproj", "{74DDB4B3-7F82-4DD7-B054-592699C17E09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthEC.Abstractions", "AuthEC.Abstractions\AuthEC.Abstractions.csproj", "{74DDB4B3-7F82-4DD7-B054-592699C17E09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthEC.DataAccess", "AuthEC.DataAccess\AuthEC.DataAccess.csproj", "{DAB0AA98-699C-48D7-943A-77AEAB3B1300}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthEC.DataAccess", "AuthEC.DataAccess\AuthEC.DataAccess.csproj", "{DAB0AA98-699C-48D7-943A-77AEAB3B1300}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthEC.Utils", "AuthEC.Utils\AuthEC.Utils.csproj", "{D4EF1061-2216-4D10-8D04-B3858ECF1191}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{DAB0AA98-699C-48D7-943A-77AEAB3B1300}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAB0AA98-699C-48D7-943A-77AEAB3B1300}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAB0AA98-699C-48D7-943A-77AEAB3B1300}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4EF1061-2216-4D10-8D04-B3858ECF1191}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4EF1061-2216-4D10-8D04-B3858ECF1191}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4EF1061-2216-4D10-8D04-B3858ECF1191}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4EF1061-2216-4D10-8D04-B3858ECF1191}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

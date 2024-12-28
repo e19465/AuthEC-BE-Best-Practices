@@ -1,5 +1,5 @@
 ﻿using AuthEC.WebApi.Config;
-using AuthEC.WebApi.Utils;
+using AuthEC.Utils;
 
 namespace AuthEC.WebApi.Extensions
 {

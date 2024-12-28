@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using AuthEC.Entities;
+using AuthEC.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
@@ -32,16 +33,16 @@ namespace AuthEC.Services
 
 			ClaimsIdentity claims = new ClaimsIdentity(new Claim[]
 			{
-				new Claim("UserId", user.Id),
-				new Claim("Gender", user.Gender!),
-				new Claim("Age", (DateTime.Now.Year - user.DateOfBirth!.Value.Year).ToString()),
-				new Claim("Role", userRole),
-				new Claim("TokenType", "access")
+				new Claim(JwtClaimTypes.UserId, user.Id),
+				new Claim(JwtClaimTypes.Gender, user.Gender!),
+				new Claim(JwtClaimTypes.Age, (DateTime.Now.Year - user.DateOfBirth!.Value.Year).ToString()),
+				new Claim(JwtClaimTypes.Role, userRole),
+				new Claim(JwtClaimTypes.TokenType, "access")
 			});
 
 			if (user.LibraryId != null) 
 			{ 
-				claims.AddClaim(new Claim("LibraryId", user.LibraryId.ToString()!));
+				claims.AddClaim(new Claim(JwtClaimTypes.LibraryId, user.LibraryId.ToString()!));
 			}
 
 			var tokenDescriptor = new SecurityTokenDescriptor
@@ -70,8 +71,8 @@ namespace AuthEC.Services
 
 			ClaimsIdentity claims = new ClaimsIdentity(new Claim[]
 			{
-				new Claim("UserId", user.Id),
-				new Claim("TokenType", "refresh")
+				new Claim(JwtClaimTypes.UserId, user.Id),
+				new Claim(JwtClaimTypes.TokenType, "refresh")
 			});
 
 			var tokenDescriptor = new SecurityTokenDescriptor

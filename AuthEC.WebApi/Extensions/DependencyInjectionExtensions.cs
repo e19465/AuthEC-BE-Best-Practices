@@ -14,6 +14,7 @@ namespace AuthEC.WebApi.Extensions
 		public static IServiceCollection AddServiceLifeTimes(this IServiceCollection services)
 		{
 			services.AddScoped<IAppUserService, AppUserService>();
+			services.AddScoped<IAccountService, AccountService>();
 			return services;
 		}
 	}
