@@ -1,11 +1,14 @@
 ﻿using System.Net;
+using System.Web;
 using AuthEC.Abstractions.Dto.AppUserRelated;
 using AuthEC.Abstractions.Interfaces;
 using AuthEC.Entities;
 using AuthEC.Services.Helpers;
+using AuthEC.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Services.Helpers;
 
 namespace AuthEC.Services
@@ -16,14 +19,37 @@ namespace AuthEC.Services
 	public class AppUserService : IAppUserService
 	{
 		private readonly UserManager<AppUser> _userManager;
-		private readonly JwtTokenService _jwtTokenService;
+		private readonly IJwtTokenService _jwtTokenService;
+		private readonly IEmailService _emailService;
+		private readonly IOptions<AppSettings> _appSettings;
 
-		public AppUserService(UserManager<AppUser> userManager)
+		public AppUserService(UserManager<AppUser> userManager, IJwtTokenService jwtTokenService, IEmailService emailService, IOptions<AppSettings> appSettings)
 		{
 			_userManager = userManager;
-			_jwtTokenService = new JwtTokenService(userManager);
+			_jwtTokenService = jwtTokenService;
+			_emailService = emailService;
+			_appSettings = appSettings;
 		}
+		
 
+		private async Task PrepareAndSendRegisterEmail(AppUser user)
+		{
+			try
+			{
+				var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+				var encodedToken = HttpUtility.UrlEncode(emailToken);
+				var confirmationLink = $"{_appSettings.Value.FrontEndUrl}/confirm-email?email={user.Email}&code={encodedToken}";
+				string subject = "Confirm Email";
+				string to = user.Email!;
+				string emailBody = RegisterEmailTemplate.GetRegisterEmailTemplate(user.UserName!, confirmationLink);
+				bool isHtml = true;
+				await _emailService.SendEmailAsync(to, subject, emailBody, isHtml);
+			}
+			catch(Exception ex)
+			{
+				throw new CustomException(HttpStatusCode.InternalServerError, ex.Message);
+			}
+		}
 
 
 		/// <summary>
@@ -44,6 +70,7 @@ namespace AuthEC.Services
 					var roleResult = await _userManager.AddToRoleAsync(newUser, userAddRequest.Role.ToString()!);
 					if (roleResult.Succeeded)
 					{
+						await PrepareAndSendRegisterEmail(newUser);
 						return Task.CompletedTask;
 					}
 					else
@@ -109,6 +136,13 @@ namespace AuthEC.Services
 				{
 					throw new CustomException(HttpStatusCode.Unauthorized, "Invalid Credentials");
 				}
+
+				bool isEmailConfirmed = await _userManager.IsEmailConfirmedAsync(foundUser);
+				if (!isEmailConfirmed)
+				{
+					throw new CustomException(HttpStatusCode.BadRequest, "Please confirm your email");
+				}
+
 				var roles = _userManager.GetRolesAsync(foundUser);
 				string role = roles.Result.First().ToString();
 				string accessToken = _jwtTokenService.GenerateAccessToken(foundUser, role, accessTokenSecret);
@@ -162,6 +196,33 @@ namespace AuthEC.Services
 			catch (CustomException)
 			{
 				throw;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomException(HttpStatusCode.InternalServerError, ex.Message);
+			}
+		}
+
+
+
+
+		/// <summary>
+		/// This service method resends the verification email
+		/// </summary>
+		/// <param name="email">Email to be verified</param>
+		/// <returns></returns>
+		/// <exception cref="CustomException"></exception>
+		public async Task<Task> ResendVerificationEmail(string email)
+		{
+			try
+			{
+				AppUser? user = await _userManager.FindByEmailAsync(email);
+				if (user == null)
+				{
+					throw new CustomException(HttpStatusCode.NotFound, "User not found");
+				}
+				await PrepareAndSendRegisterEmail(user);
+				return Task.CompletedTask;
 			}
 			catch (Exception ex)
 			{

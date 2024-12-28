@@ -1,6 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using AuthEC.Abstractions.Interfaces;
 using AuthEC.Entities;
 using AuthEC.Utils;
 using Microsoft.AspNetCore.Identity;
@@ -8,7 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace AuthEC.Services
 {
-	public class JwtTokenService
+	public class JwtTokenService : IJwtTokenService
 	{
 		private readonly UserManager<AppUser> _userManager;
 

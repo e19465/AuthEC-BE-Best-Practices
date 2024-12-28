@@ -31,5 +31,14 @@ namespace AuthEC.Abstractions.Interfaces
 		/// <returns>JWT access and refresh toknes</returns>
 		Task<SignInResponse> RefreshTokens(RefreshTokenRequest request, string accessTokenSecret, string refreshTokenSecret);
 
+
+
+		/// <summary>
+		/// This is the method to verify the email
+		/// </summary>
+		/// <param name="email">Email for sending verification email</param>
+		/// <returns></returns>
+		Task<Task> ResendVerificationEmail(string email);
+
 	}
 }

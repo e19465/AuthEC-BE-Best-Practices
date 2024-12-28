@@ -15,6 +15,8 @@ namespace AuthEC.WebApi.Extensions
 		{
 			services.AddScoped<IAppUserService, AppUserService>();
 			services.AddScoped<IAccountService, AccountService>();
+			services.AddScoped<IJwtTokenService, JwtTokenService>();
+			services.AddTransient<IEmailService, EmailService>();
 			return services;
 		}
 	}

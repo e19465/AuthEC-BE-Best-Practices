@@ -16,6 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddSwagger()
 				.AddDbContext(builder.Configuration)
 				.AddAppConfig(builder.Configuration)
+				.AddSmtpConfig(builder.Configuration)
 				.AddIdentityHandlersAndStores()
 				.ConfigureIdentityOptions()
 				.AddIdentityAuth(builder.Configuration)

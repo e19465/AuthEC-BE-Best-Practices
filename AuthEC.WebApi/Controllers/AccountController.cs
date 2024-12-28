@@ -1,6 +1,8 @@
-﻿using AuthEC.Abstractions.Dto.AccountRelated;
+﻿using System.Security.Claims;
+using AuthEC.Abstractions.Dto.AccountRelated;
 using AuthEC.Abstractions.Interfaces;
 using AuthEC.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuthEC.WebApi.Controllers
@@ -9,11 +11,13 @@ namespace AuthEC.WebApi.Controllers
 	[ApiController]
 	public class AccountController : ControllerBase
 	{
-		public readonly IAccountService _accountService;
+		private readonly IAccountService _accountService;
+		private readonly IEmailService _emailService;
 
-		public AccountController(IAccountService accountService)
+		public AccountController(IAccountService accountService, IEmailService emailService)
 		{
 			_accountService = accountService;
+			_emailService = emailService;
 		}
 
 
@@ -40,6 +44,17 @@ namespace AuthEC.WebApi.Controllers
 			{
 				return CustomExceptionsHandler.HandleException(ex);
 			}
+		}
+
+		[AllowAnonymous]
+		[HttpGet("send-welcome-email")]
+		public async Task<IResult> SendWelcomeEmail()
+		{
+			string userEmail = "sasindudil0002@gmail.com";
+			var subject = "Welcome to Our Service";
+			var body = "<h1>Thank you for registering!</h1>";
+			await _emailService.SendEmailAsync(userEmail, subject, body, isHtml: true);
+			return Results.Ok(new { Message = "Email sent successfully" });
 		}
 	}
 }

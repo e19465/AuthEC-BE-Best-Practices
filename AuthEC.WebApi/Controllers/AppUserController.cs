@@ -32,7 +32,7 @@ namespace AuthEC.WebApi.Controllers
 			try
 			{
 				await _appUserService.AddUser(request);
-				return Results.Ok(new { Message = "Registration Successfull"});
+				return Results.Ok(new { Message = "Registration Successfull, Verification Email is Sent. Please check your email"});
 			}
 			catch (Exception ex)
 			{
@@ -81,6 +81,29 @@ namespace AuthEC.WebApi.Controllers
 				string refreshTokenSecret = _appSettings.Value.RefreshTokenSecret;
 				var response = await _appUserService.RefreshTokens(request, accessTokenSecret, refreshTokenSecret);
 				return Results.Ok(response);
+			}
+			catch (Exception ex)
+			{
+				return CustomExceptionsHandler.HandleException(ex);
+			}
+		}
+
+
+
+		/// <summary>
+		/// This method is only accessible to Admin users
+		/// </summary>
+		/// <param name="email">email to be verified</param>
+		/// <returns></returns>
+
+		[HttpPost("resend-verification-email")]
+		[AllowAnonymous]
+		public async Task<IResult> ResendVerificationEmail([FromBody] string email)
+		{
+			try
+			{
+				await _appUserService.ResendVerificationEmail(email);
+				return Results.Ok(new { Message = "Verification Email Sent. Please check your email" });
 			}
 			catch (Exception ex)
 			{

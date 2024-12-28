@@ -31,5 +31,12 @@ namespace AuthEC.WebApi.Extensions
 			services.Configure<AppSettings>(configuration.GetSection("AppSettings"));
 			return services;
 		}
+
+
+		public static IServiceCollection AddSmtpConfig(this IServiceCollection services, IConfiguration configuration)
+		{
+			services.Configure<SmtpSettings>(configuration.GetSection("SmtpSettings"));
+			return services;
+		}
 	}
 }
