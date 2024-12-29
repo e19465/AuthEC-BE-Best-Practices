@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using AuthEC.Abstractions.Dto.AccountRelated;
+﻿using AuthEC.Abstractions.Dto.AccountRelated;
 using AuthEC.Abstractions.Interfaces;
 using AuthEC.Utils;
 using Microsoft.AspNetCore.Authorization;

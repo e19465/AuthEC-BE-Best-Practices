@@ -1,5 +1,4 @@
-﻿using System;
-using AuthEC.Abstractions.Dto.AppUserRelated;
+﻿using AuthEC.Abstractions.Dto.AppUserRelated;
 
 namespace AuthEC.Abstractions.Interfaces
 {

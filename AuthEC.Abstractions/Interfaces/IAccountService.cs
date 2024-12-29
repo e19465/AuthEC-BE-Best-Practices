@@ -1,5 +1,4 @@
-﻿using System;
-using AuthEC.Abstractions.Dto.AccountRelated;
+﻿using AuthEC.Abstractions.Dto.AccountRelated;
 
 namespace AuthEC.Abstractions.Interfaces
 {

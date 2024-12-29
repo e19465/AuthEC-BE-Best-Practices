@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AuthEC.Abstractions.Interfaces;
+﻿using AuthEC.Abstractions.Interfaces;
 using AuthEC.Utils;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
