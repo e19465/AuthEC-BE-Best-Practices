@@ -110,5 +110,41 @@ namespace AuthEC.WebApi.Controllers
 				return CustomExceptionsHandler.HandleException(ex);
 			}
 		}
+
+
+		/// <summary>
+		/// This method is for confirming the email of the user
+		/// </summary>
+		/// <param name="request">EmailConfirmRequest type request body</param>
+		/// <returns>IResult</returns>
+		[HttpPost("confirm-email")]
+		[AllowAnonymous]
+		public async Task<IResult> ConfirmEmail([FromBody] EmailConfirmRequest request)
+		{
+			try
+			{
+				await _appUserService.VerifyEmail(request);
+				return Results.Ok(new { Message = "Email Verified Successfully" });
+			}
+			catch (Exception ex)
+			{
+				return CustomExceptionsHandler.HandleException(ex);
+			}
+		}
+
+
+		[HttpPost("test")]
+		[AllowAnonymous]
+		public async Task<IResult> Test([FromBody] EmailConfirmRequest request)
+		{
+			try
+			{
+				return Results.Ok(new { Message = "Test Successfull" });
+			}
+			catch (Exception ex)
+			{
+				return CustomExceptionsHandler.HandleException(ex);
+			}
+		}
 	}
 }

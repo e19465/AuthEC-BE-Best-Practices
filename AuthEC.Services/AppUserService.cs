@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Buffers.Text;
+using System.Net;
 using System.Web;
 using AuthEC.Abstractions.Dto.AppUserRelated;
 using AuthEC.Abstractions.Interfaces;
@@ -64,10 +65,10 @@ namespace AuthEC.Services
 			{
 				ValidationHelper.ValidateModelBinding(userAddRequest);
 				AppUser newUser = userAddRequest.ToAppUser();
-				var result = await _userManager.CreateAsync(newUser, userAddRequest.Password);
+				IdentityResult result = await _userManager.CreateAsync(newUser, userAddRequest.Password);
 				if(result.Succeeded)
 				{
-					var roleResult = await _userManager.AddToRoleAsync(newUser, userAddRequest.Role.ToString()!);
+					IdentityResult roleResult = await _userManager.AddToRoleAsync(newUser, userAddRequest.Role.ToString()!);
 					if (roleResult.Succeeded)
 					{
 						await PrepareAndSendRegisterEmail(newUser);
@@ -76,13 +77,13 @@ namespace AuthEC.Services
 					else
 					{
 						await _userManager.DeleteAsync(newUser);
-						var errorMessage = string.Join("; ", roleResult.Errors.Select(result => result.Description));
+						var errorMessage = PrepareErrorMessage.PrepareErrorMessageFromIdentityResult(roleResult);
 						throw new CustomException(HttpStatusCode.BadRequest, errorMessage);
 					}
 				}
 				else
 				{
-					var errorMessage = string.Join("; ", result.Errors.Select(result => result.Description));
+					var errorMessage = PrepareErrorMessage.PrepareErrorMessageFromIdentityResult(result);
 					// Check if the error is due to a duplicate email
 					if (result.Errors.Any(e => e.Code == "DuplicateEmail"))
 					{
@@ -225,6 +226,47 @@ namespace AuthEC.Services
 				return Task.CompletedTask;
 			}
 			catch (Exception ex)
+			{
+				throw new CustomException(HttpStatusCode.InternalServerError, ex.Message);
+			}
+		}
+
+
+
+
+		/// <summary>
+		/// This service method verifies the email
+		/// </summary>
+		/// <param name="request">EmailConfirmRequest type request body</param>
+		/// <returns>Task.CompletedTask</returns>
+		/// <exception cref="CustomException">throws CustomException if something bad happens</exception>
+		public async Task<Task> VerifyEmail(EmailConfirmRequest request)
+		{
+			try
+			{
+				string email = request.Email;
+				string code = request.Code;
+				if(string.IsNullOrEmpty(email) || string.IsNullOrEmpty(code))
+				{
+					throw new CustomException(HttpStatusCode.BadRequest, "Invalid Request");
+				}
+				AppUser? user = await _userManager.FindByEmailAsync(email);
+				if (user == null)
+				{
+					throw new CustomException(HttpStatusCode.NotFound, "User not found");
+				}
+				IdentityResult result = await _userManager.ConfirmEmailAsync(user, code);
+				if (result.Succeeded)
+				{
+					return Task.CompletedTask;
+				}
+				else
+				{
+					var errorMessage = PrepareErrorMessage.PrepareErrorMessageFromIdentityResult(result);
+					throw new CustomException(HttpStatusCode.BadRequest, errorMessage);
+				}
+			}
+			catch(Exception ex)
 			{
 				throw new CustomException(HttpStatusCode.InternalServerError, ex.Message);
 			}

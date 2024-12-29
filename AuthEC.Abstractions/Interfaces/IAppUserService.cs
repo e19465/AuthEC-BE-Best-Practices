@@ -40,5 +40,14 @@ namespace AuthEC.Abstractions.Interfaces
 		/// <returns></returns>
 		Task<Task> ResendVerificationEmail(SendEmailVerificationRequest request);
 
+
+
+		/// <summary>
+		/// This is the method to verify the email
+		/// </summary>
+		/// <param name="request">EmailConfirmRequest type request body</param>
+		/// <returns></returns>
+		Task<Task> VerifyEmail(EmailConfirmRequest request);
+
 	}
 }
