@@ -96,13 +96,13 @@ namespace AuthEC.WebApi.Controllers
 		/// <param name="email">email to be verified</param>
 		/// <returns></returns>
 
-		[HttpPost("resend-verification-email")]
+		[HttpPost("send-verification-email")]
 		[AllowAnonymous]
-		public async Task<IResult> ResendVerificationEmail([FromBody] string email)
+		public async Task<IResult> ResendVerificationEmail([FromBody] SendEmailVerificationRequest request)
 		{
 			try
 			{
-				await _appUserService.ResendVerificationEmail(email);
+				await _appUserService.ResendVerificationEmail(request);
 				return Results.Ok(new { Message = "Verification Email Sent. Please check your email" });
 			}
 			catch (Exception ex)

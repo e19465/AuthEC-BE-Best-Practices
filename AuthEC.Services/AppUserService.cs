@@ -212,11 +212,11 @@ namespace AuthEC.Services
 		/// <param name="email">Email to be verified</param>
 		/// <returns></returns>
 		/// <exception cref="CustomException"></exception>
-		public async Task<Task> ResendVerificationEmail(string email)
+		public async Task<Task> ResendVerificationEmail(SendEmailVerificationRequest request)
 		{
 			try
 			{
-				AppUser? user = await _userManager.FindByEmailAsync(email);
+				AppUser? user = await _userManager.FindByEmailAsync(request.Email);
 				if (user == null)
 				{
 					throw new CustomException(HttpStatusCode.NotFound, "User not found");

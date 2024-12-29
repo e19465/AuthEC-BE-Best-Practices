@@ -38,7 +38,7 @@ namespace AuthEC.Abstractions.Interfaces
 		/// </summary>
 		/// <param name="email">Email for sending verification email</param>
 		/// <returns></returns>
-		Task<Task> ResendVerificationEmail(string email);
+		Task<Task> ResendVerificationEmail(SendEmailVerificationRequest request);
 
 	}
 }
