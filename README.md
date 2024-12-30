@@ -3,7 +3,7 @@
 This project is a Web API built using **.NET 8**. It incorporates modern best practices and features, including:
 
 - **JWT Authentication**: Secure access to API endpoints.
-- **Role-Based Authentication**: Supports `Admin`, `Teacher`, and `Student` roles.
+- **Role-Based Authorization**: Supports `Admin`, `Teacher`, and `Student` roles.
 - **MS SQL Server**: A robust database backend for application data.
 - **N-Tier Architecture**: A structured design for better scalability and maintainability.
 - **Custom Authorization Policies**: Enables fine-grained access control beyond roles.
@@ -17,7 +17,7 @@ This project is a Web API built using **.NET 8**. It incorporates modern best pr
 - Ensures secure API access with JSON Web Tokens.
 - Tokens are issued after successful login and are required for accessing secured endpoints.
 
-### 2. Role-Based Authentication
+### 2. Role-Based Authorization
 - Supports the following roles:
   - `Admin`: Has full access to manage the application.
   - `Teacher`: Can access and manage resources specific to teachers.
