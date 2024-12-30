@@ -36,7 +36,6 @@ This project is a Web API built using **.NET 8**. It incorporates modern best pr
 
 ### 5. Custom Authorization Policies
 - Adds fine-grained access control based on custom business logic or user attributes.
-- Policies are defined in the `Policies` directory and applied to endpoints using `[Authorize(Policy = "PolicyName")]`.
 
 ### 6. Email Confirmation Logic
 - Before signing in, users must confirm their email address.
